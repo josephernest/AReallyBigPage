@@ -1,6 +1,8 @@
 BigBigPicture
 =============
 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/josephernest/BigBigPicture?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 BigBigPicture is a collaborative tool based on [bigpicture.js](http://github.com/josephernest/bigpicture.js), using node.js / socket.io.
 
 [Live demo here](http://gget.it:3001/)
