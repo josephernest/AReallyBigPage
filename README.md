@@ -2,8 +2,10 @@ BigBigPicture
 =============
 
 BigBigPicture is a collaborative tool based on [bigpicture.js](http://github.com/josephernest/bigpicture.js), using node.js / socket.io.
- 
+
 [Live demo here](http://gget.it:3001/)
+
+*This is a test version done in one hour, past history is not saved in database yet (working on it!).*
 
 Install
 ----
