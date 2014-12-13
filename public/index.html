@@ -19,7 +19,46 @@
 <script type="text/javascript" src="http://josephernest.github.io/bigpicture.js/bigpicture.js"></script>
   
 <script>
+
+  /*
+   *       HELPER FUNCTIONS
+   */
+
   function isContainedByClass(e, cls) { while (e && e.tagName) { if (e.classList.contains(cls)) return true; e = e.parentNode; } return false; }
+
+  function throttle(func, wait, options) {  // from underscorejs
+    var context, args, result;
+    var timeout = null;
+    var previous = 0;
+    if (!options) options = {};
+    var later = function() {
+      previous = options.leading === false ? 0 : Date.now();
+      timeout = null;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    };
+    return function() {
+      var now = Date.now();
+      if (!previous && options.leading === false) previous = now;
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+      if (remaining <= 0 || remaining > wait) {
+        clearTimeout(timeout);
+        timeout = null;
+        previous = now;
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+      } else if (!timeout && options.trailing !== false) {
+        timeout = setTimeout(later, remaining);
+      }
+      return result;
+    };
+  }
+
+  /*
+   *       COLLABORATIVE HANDLING
+   */
   
   var socket = io(),
     bp = document.getElementById('bigpicture'),
@@ -27,13 +66,17 @@
 
   var tempId = 0;
 
-  $(bp).on('blur', '.text', function() { 
+  function emitText() { 
     socket.emit('text', { x: $(this).data('x'), 
                           y: $(this).data('y'), 
                           size: $(this).data('size'), 
                           text: $(this).text(),
-                          id: $(this).attr('id')});
-  });        
+                          id: $(this).attr('id') });
+  }
+
+  $(bp).on('blur', '.text', emitText);
+
+  $(bp).on('input', '.text', throttle(emitText, 500));
   
   bpContainer.onclick = function(e) {
     if (isContainedByClass(e.target, 'text')) { return; }
