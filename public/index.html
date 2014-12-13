@@ -7,11 +7,26 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="http://josephernest.github.io/bigpicture.js/bigpicture.css" rel="stylesheet">
+  <style>
+    #notice {
+      background: #000; color:#fff;
+      position:absolute;
+      width: 120px;
+      top: 10px;
+      right:10px;
+      z-index: 10;
+      padding: 10px;
+      font-family: "Arial";
+      opacity: 0.4;
+    }
+  </style>
 </head> 
 
 <body>  
   <div id="bigpicture-container"><div id="bigpicture" data-zoom="1" data-x="721" data-y="480">
-    <div contenteditable="true" class="text" id="id0" data-size="57" data-x="941" data-y="735">This is collaborative!</div>
+  </div>
+  <div id="notice">
+    The content here may be modified by any user.<br><a href="http://github.com/josephernest/BigBigPicture">Github project</a>
   </div>
   
 <script src="/socket.io/socket.io.js"></script>
