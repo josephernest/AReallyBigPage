@@ -10,9 +10,14 @@ Install
 
 1) First install node.js.
 
-2) Install the `express` and `socket.io` modules with `npm install express` and `npm install socket.io`
+2) Install the `express` and `socket.io` modules with 
 
-3) Run `node bigbigpicture.js`
+    npm install express
+    npm install socket.io
+
+3) Run 
+
+    node bigbigpicture.js
 
 4) Access the server with port 3001, like this : `http://localhost:3001/`.
 
