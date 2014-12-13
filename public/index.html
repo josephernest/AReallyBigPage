@@ -1,0 +1,64 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+
+<head> 
+  <meta charset="utf-8"> 
+  <title>bigpicture.js</title> 
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="http://josephernest.github.io/bigpicture.js/bigpicture.css" rel="stylesheet">
+</head> 
+
+<body>  
+  <div id="bigpicture-container"><div id="bigpicture" data-zoom="1" data-x="721" data-y="480">
+    <div contenteditable="true" class="text" id="id0" data-size="57" data-x="941" data-y="735">This is collaborative!</div>
+  </div>
+  
+<script src="/socket.io/socket.io.js"></script>
+    
+<script type="text/javascript" src="http://josephernest.github.io/bigpicture.js/bigpicture.js"></script>
+  
+<script>
+  function isContainedByClass(e, cls) { while (e && e.tagName) { if (e.classList.contains(cls)) return true; e = e.parentNode; } return false; }
+  
+  var socket = io(),
+    bp = document.getElementById('bigpicture'),
+    bpContainer = document.getElementById('bigpicture-container');
+
+  var tempId = 0;
+
+  $(bp).on('blur', '.text', function() { 
+    socket.emit('text', { x: $(this).data('x'), 
+                          y: $(this).data('y'), 
+                          size: $(this).data('size'), 
+                          text: $(this).text(),
+                          id: $(this).attr('id')});
+  });        
+  
+  bpContainer.onclick = function(e) {
+    if (isContainedByClass(e.target, 'text')) { return; }
+    var tb = bigpicture.newText(bigpicture.current.x + (e.clientX) * bigpicture.current.zoom, bigpicture.current.y + (e.clientY) * bigpicture.current.zoom, 20 * bigpicture.current.zoom, '');
+    $(tb).attr('id', 'tempId' + tempId);
+    socket.emit('temp id', {tempId: tempId}); 
+    tempId ++;
+    tb.focus();
+  };
+  
+  socket.on('new id', function (data) { $('#tempId' + data.tempId).attr('id', 'id' + data.id); });  
+  
+  socket.on('text', function (data) { 
+    var $tb = $('#' + data.id);
+    if ($tb.length) {
+      $tb.data('x', data.x).data('y', data.y).data('size', data.size).text(data.text);
+      bigpicture.updateTextPosition($tb.get(0));
+    }
+    else {
+      var tb = bigpicture.newText(data.x, data.y, data.size, data.text);
+      $(tb).attr('id', data.id);
+    }
+  });
+  
+</script>
+  
+</body>
+</html>
