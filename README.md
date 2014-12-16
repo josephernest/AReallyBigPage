@@ -1,11 +1,9 @@
-BigBigPicture
+AReallyBigPage
 =============
 
-BigBigPicture is a collaborative tool based on [bigpicture.js](http://github.com/josephernest/bigpicture.js), using node.js / socket.io.
+This is a collaborative page based on [bigpicture.js](http://github.com/josephernest/bigpicture.js), using node.js / socket.io.
 
-[Live demo here](http://gget.it:3001/)
-
-*This is a test version done in one hour, past history is not saved in database yet (working on it!).*
+[Live demo here](http://areallybigpage.com/)
 
 Install
 ----
@@ -19,7 +17,7 @@ Install
 
 3) Run 
 
-    node bigbigpicture.js
+    node app.js
 
 4) Access the server with port 3001, like this : `http://localhost:3001/`.
 
