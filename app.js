@@ -8,11 +8,11 @@ server.listen(3001);
 
 app.use(express.static(__dirname + '/public'));
 
-var jsonfile = require('./bigbigpicture.json');
+var jsonfile = require('./areallybigpage.json');
 var id = jsonfile['lastid'];
 var texts = jsonfile['texts'];
 
-setInterval(function() { fs.writeFile('./bigbigpicture.json', JSON.stringify({ 'lastid': id, 'texts': texts })); }, 60 * 1000); // serialize to disk every minute
+setInterval(function() { fs.writeFile('./areallybigpage.json', JSON.stringify({ 'lastid': id, 'texts': texts })); }, 60 * 1000); // serialize to disk every minute
 
 io.on('connection', function (socket) {
   for (var textId in texts) { socket.emit('text', texts[textId]); } // when a new user connects, send all past history
