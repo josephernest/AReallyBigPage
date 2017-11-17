@@ -22,7 +22,7 @@ Install
 
         node areallybigpage.js
 
-4) Access the server with port 3001, like this : `http://localhost:3001/`.
+4) Access the server with port 3001, like this: `http://localhost:3001/`.
 
 
 About
