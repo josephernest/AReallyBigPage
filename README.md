@@ -3,7 +3,7 @@ AReallyBigPage
 
 This is a collaborative page based on [bigpicture.js](http://github.com/josephernest/bigpicture.js), using node.js / socket.io.
 
-[Live demo here](http://170.130.142.17:3001/)
+[It's online again here!](http://170.130.142.17:3001/)
 
 Many many many many many people have contributed, [see here](https://www.youtube.com/watch?v=52ilOpxWYuc).
 
