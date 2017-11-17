@@ -3,36 +3,26 @@
 
 <head> 
   <meta charset="utf-8"> 
-  <title>bigpicture.js</title> 
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <title>a really big page</title> 
   <link href="http://josephernest.github.io/bigpicture.js/bigpicture.css" rel="stylesheet">
   <style>
-    #notice {
-      background: #000; color:#fff;
-      position:absolute;
-      width: 120px;
-      top: 10px;
-      right:10px;
-      z-index: 10;
-      padding: 10px;
-      font-family: "Arial";
-      opacity: 0.4;
-    }
+    html, body { margin: 0; }
+    #notice { background: #000; color: #fff; position: absolute; width: 120px; top: 10px; right: 10px; z-index: 10; padding: 10px; font-size: 15px; font-family: "Arial"; opacity: 0.4; }
   </style>
 </head> 
 
 <body>  
-  <div id="bigpicture-container"><div id="bigpicture" data-zoom="1" data-x="721" data-y="480">
+  <div id="bigpicture-container"><div id="bigpicture" data-zoom="1" data-x="700" data-y="500">
   </div>
   <div id="notice">
-    The content here may be modified by any user.<br><a href="http://github.com/josephernest/BigBigPicture">Github project</a>
+    The content here may be modified by any user.<br><a href="http://github.com/josephernest/AReallyBigPage">Github project</a><br>
+    <div id="users"><br></div><br><a href="http://josephernest.github.io/bigpicture.js/bigpicture.html">Howto</a>
   </div>
-  
-<script src="/socket.io/socket.io.js"></script>
-    
-<script type="text/javascript" src="http://josephernest.github.io/bigpicture.js/bigpicture.js"></script>
-  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>  
+<script src="socket.io/socket.io.js"></script>
+<script src="http://josephernest.github.io/bigpicture.js/bigpicture.js"></script>
+
 <script>
 
   /*
@@ -96,13 +86,13 @@
   bpContainer.onclick = function(e) {
     if (isContainedByClass(e.target, 'text')) { return; }
     var tb = bigpicture.newText(bigpicture.current.x + (e.clientX) * bigpicture.current.zoom, bigpicture.current.y + (e.clientY) * bigpicture.current.zoom, 20 * bigpicture.current.zoom, '');
-    $(tb).attr('id', 'tempId' + tempId);
-    socket.emit('temp id', {tempId: tempId}); 
-    tempId ++;
+    tempId++;    
+    tb.id = 'tempId' + tempId;
+    socket.emit('temp id', { tempId: tempId });
     tb.focus();
   };
   
-  socket.on('new id', function (data) { $('#tempId' + data.tempId).attr('id', 'id' + data.id); });  
+  socket.on('new id', function (data) { document.getElementById('tempId' + data.tempId).id = 'id' + data.id; });  
   
   socket.on('text', function (data) { 
     var $tb = $('#' + data.id);
@@ -115,6 +105,8 @@
       $(tb).attr('id', data.id);
     }
   });
+
+  socket.on('usercount', function(userCount) { $('#users').html(userCount + ' user' + ((userCount > 1) ? 's ':' ') + 'right now'); });
   
 </script>
   
