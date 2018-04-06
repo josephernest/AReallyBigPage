@@ -27,7 +27,7 @@ if (mobileOrTablet) { window.location.href = "unsupported.html" }
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>  
-<script src="socket.io/socket.io.js"></script>
+<script src="/wsareallybigpage/socket.io.js"></script>
 <script src="http://josephernest.github.io/bigpicture.js/bigpicture.js"></script>
 
 <script>
@@ -72,7 +72,7 @@ if (mobileOrTablet) { window.location.href = "unsupported.html" }
    *       COLLABORATIVE HANDLING
    */
   
-  var socket = io(),
+  var socket = io('', { path: '/wsareallybigpage' }),
     bp = document.getElementById('bigpicture'),
     bpContainer = document.getElementById('bigpicture-container');
 
